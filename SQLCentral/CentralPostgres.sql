@@ -29,7 +29,8 @@ id_cliente UUID REFERENCES clientes(id_cliente) ON DELETE SET NULL,
 fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 estado VARCHAR(20),
 costo_envio DECIMAL(10,2),
-qr_codigo TEXT
+qr_codigo TEXT,
+ip_nodo VARCHAR(100) REFERENCES nodos_registrados(ip_nodo) ON DELETE SET NULL
 );
 
 -- Tabla: historial de pagos (recargas)
@@ -40,6 +41,11 @@ monto DECIMAL(10,2) NOT NULL CHECK (monto > 0),
 fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 medio_pago VARCHAR(50)
 );
+
+CREATE TABLE nodos_registrados (
+	ip_nodo VARCHAR(100) PRIMARY KEY, 
+	name_nodo VARCHAR(100) NOT NULL
+)
 
 --Crear rol de replicación
 
@@ -64,4 +70,8 @@ GRANT SELECT ON TABLES TO rol_replica;
 -- Crear la publicación con las 3 tablas
 CREATE PUBLICATION central_pub
 FOR TABLE clientes, historial_envios, historial_pagos;
+
+select * from api_cliente
+
+--Se crea desde el local (Sincronización) 
 SELECT * FROM api_cliente;

@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Cliente, HistorialEnvio, HistorialPago
-from .serializers import ClienteSerializer, HistorialEnvioSerializer, HistorialPagoSerializer
+from .models import Cliente, HistorialEnvio, HistorialPago, Nodo
+from .serializers import ClienteSerializer, HistorialEnvioSerializer, HistorialPagoSerializer, NodoSerializer
 
 class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
@@ -13,3 +13,7 @@ class HistorialEnvioViewSet(viewsets.ModelViewSet):
 class HistorialPagoViewSet(viewsets.ModelViewSet):
     queryset = HistorialPago.objects.all()
     serializer_class = HistorialPagoSerializer
+
+class NodoViewSet(viewsets.ModelViewSet):
+    queryset = Nodo.objects.all()
+    serializer_class = NodoSerializer
