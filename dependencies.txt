@@ -1,1 +1,2 @@
 py -m pip install Django
+pip install qrcode[pil]
