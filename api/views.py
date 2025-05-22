@@ -3,6 +3,9 @@ from .models import Cliente, HistorialEnvio, HistorialPago, Nodo
 from .serializers import ClienteSerializer, HistorialEnvioSerializer, HistorialPagoSerializer, NodoSerializer
 from rest_framework.views import APIView
 
+from rest_framework.generics import ListAPIView
+from rest_framework.response import Response
+from rest_framework import status
 
 class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
@@ -28,3 +31,7 @@ class ConsultaQRView(APIView):
             return Response(serializer.data)
         except HistorialEnvio.DoesNotExist:
             return Response({"error": "Código QR no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        
+class HistorialGeneralEnviosView(ListAPIView):
+    queryset = HistorialEnvio.objects.all().order_by('-fecha_envio')
+    serializer_class = HistorialEnvioSerializer

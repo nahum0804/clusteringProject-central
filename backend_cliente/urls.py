@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from api.views import ClienteViewSet, HistorialEnvioViewSet, HistorialPagoViewSet, NodoViewSet, ConsultaQRView
+from api.views import ClienteViewSet, HistorialEnvioViewSet, HistorialPagoViewSet, NodoViewSet, ConsultaQRView, HistorialGeneralEnviosView
 
 router = DefaultRouter()
 router.register(r'clientes', ClienteViewSet)
@@ -29,4 +29,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/consulta_qr/<str:qr_codigo>/', ConsultaQRView.as_view(), name='consulta_qr'),
+    path('api/historial_general_envios/', HistorialGeneralEnviosView.as_view(), name='historial_general_envios'),
 ]
